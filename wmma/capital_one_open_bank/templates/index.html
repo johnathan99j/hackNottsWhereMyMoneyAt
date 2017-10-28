@@ -1,0 +1,29 @@
+<head>
+<title>CapitalOne - WhereMyMoneyAt?</title>
+</head>
+
+<!-- <body bgcolor="white"> -->
+<center>
+<h1>CapitalOne - WhereMyMoneyAt</h1>
+
+
+{% load static %}
+<img src="{% static "capital-one-logo.jpeg" %}"
+  alt="Capital One Logo" style="width: 250px; height: 100px;"/>
+
+
+<h2>Ever wondered where you spend your money? </h2>
+<h3>Find out now with our map. The more you spend at a merchant,
+  bigger the dot will be. Also, you can see the frequency of your purchases
+  with a particular merchant </h3>
+
+
+<form action="/generate-map/" method="post">
+    Your account ID:<br>
+    <input type="text" name="cf_id"><br>
+    <input type="submit" value="Go">
+    <input type="reset" value="Clear">
+</form>
+</center>
+
+</body>
