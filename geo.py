@@ -3,15 +3,13 @@ import json
 
 from envVariables import *
 
-# print ("Hi You")
-
 r = requests.get("http://api.reimaginebanking.com/merchants?key=" + API_KEY)
 
-print (r.content)
+i = 0
 
-# parsed_json = json.loads(r.json())
-
-# print(r.json()['geocode'])
-
-def parseGPS(arg):
+try:
+    while r.json()['data'][i]['geocode'] != "":
+        print(r.json()['data'][i]['geocode'])
+        i += 1
+except IndexError as e:
     pass
