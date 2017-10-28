@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>CapitalOne - WhereMyMoneyAt?</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -16,6 +17,10 @@
     </style>
   </head>
   <body>
+    {% load static %}
+    <img src="{% static "capital-one-logo.jpeg" %}"
+      alt="Capital One Logo" style="width: 250px; height: 100px;
+      display: block; margin: 0 auto;"/>
     <div id="map"></div>
     <script>
       var map;
@@ -57,8 +62,8 @@
         map.data.addGeoJson(results);
       }
     </script>
-    <!-- <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-    </script> -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7ECZTahynMz3LnangQxaa7gokxJ7UAuY&callback=initMap">
+    </script>
   </body>
 </html>
