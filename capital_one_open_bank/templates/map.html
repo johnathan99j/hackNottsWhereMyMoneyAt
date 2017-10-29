@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>CapitalOne - WhereMyMoneyAt?</title>
+            {% load static %}
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -16,11 +17,24 @@
       }
     </style>
   </head>
-  <body>
+  <body style="background: url('../static/no-money.jpeg') no-repeat center center fixed;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;">
     {% load static %}
-    <a href="{% url 'home'%}"><img src="{% static "capital-one-logo.jpeg" %}"
+    <center>
+    <h1 style="color: #303e4e; font: 1.8 Optimist,Arial,Helvetica,sans-serif";>
+      CapitalOne - WhereMyMoneyAt?</h1>
+    <img src="{% static "capital-one-logo.png" %}"
       alt="Capital One Logo" style="width: 250px; height: 100px;
-      display: block; margin: 0 auto;"/></a>
+      display: block; margin: 0 auto;"/>
+      <h3 style="color: #303e4e; font: 1.8 Optimist,Arial,Helvetica,sans-serif;"
+      ><strong>
+        Merchants were you spent bigger amounts have bigger circles around them
+      </strong> </h3>
+          </center>
+      <br></br>
     <div id="map"></div>
     <script>
       var map;
@@ -50,8 +64,8 @@
       function getCircle(magnitude) {
         return {
           path: google.maps.SymbolPath.CIRCLE,
-          fillColor: 'red',
-          fillOpacity: .2,
+          fillColor: '#FFF345',
+          fillOpacity: .4,
           scale: Math.pow(2, magnitude) / 2,
           strokeColor: 'white',
           strokeWeight: .5
@@ -62,6 +76,19 @@
         map.data.addGeoJson(results);
       }
     </script>
+    <!-- <script type="style/javascript" src="{% static "colour-circles.js" %}"> </script> -->
+    <!-- <script> console.log("before function hahahah");
+    window.onload = function(e) {
+        var circleImageContainer = document.getElementsByClassName("gm-style");
+        var circleImageDiv = circleImageContainer[0].getElementsByClassName("gmnoprint");
+        for (var i = 0; i < circleImageDiv.length; i++)
+        {
+          var circleImage = circleImageDiv[i].getElementsByTagName("img");
+          console.log(circleImageDiv.length);
+          circleImage[0].style.background = "green";
+        }
+    }
+    </script> -->
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7ECZTahynMz3LnangQxaa7gokxJ7UAuY&callback=initMap">
     </script>
