@@ -12,7 +12,8 @@ def main():
     i, j = 0, 0
 
     # cust id -> account(s) id -> purchase(s) id -> merchant id -> gps
-    # custId = "59f45071a73e4942cdafe49f"
+    # custId = "59f45071a73e4942cdafe49f" # Non Local
+    # custId = "59f45070a73e4942cdafe49e" # Local
 
     if len(sys.argv) != 2:
         exit("Error: Must pass customer id as first and only arguemnt")
