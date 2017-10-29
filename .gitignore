@@ -1,3 +1,4 @@
 GeoJSONP.js
 envVariables.py
 __pycache__/
+*.pyc

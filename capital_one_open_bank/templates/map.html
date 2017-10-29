@@ -18,9 +18,9 @@
   </head>
   <body>
     {% load static %}
-    <img src="{% static "capital-one-logo.jpeg" %}"
+    <a href="{% url 'home'%}"><img src="{% static "capital-one-logo.jpeg" %}"
       alt="Capital One Logo" style="width: 250px; height: 100px;
-      display: block; margin: 0 auto;"/>
+      display: block; margin: 0 auto;"/></a>
     <div id="map"></div>
     <script>
       var map;

@@ -1,37 +1,48 @@
+#!/usr/bin/python
 import requests
 import json
+import sys
 
 from envVariables import *
 
-i, j = 0, 0
+def main():
+    i, j = 0, 0
 
-# cust id -> account(s) id -> purchase(s) id -> merchant id -> gps
-custId = "59f45071a73e4942cdafe49f"
+    # cust id -> account(s) id -> purchase(s) id -> merchant id -> gps
+    # custId = "59f45071a73e4942cdafe49f"
 
-file = open("capital_one_open_bank/static/GeoJSONP.js","w")
+    if len(sys.argv) != 2:
+        exit("Error: Must pass customer id as first and only arguemnt")
 
-file.write('eqfeed_callback({"type": "FeatureCollection","features": [')
+    custId = sys.argv[1]
 
-r = requests.get("http://api.reimaginebanking.com/customers/" + custId + "/accounts?key=" + API_KEY)
+    file = open("capital_one_open_bank/static/GeoJSONP.js","w")
 
-try:
-    # Loop though all the customers accounts
-    while r.json()[i]['_id'] != "":
-        s = requests.get("http://api.reimaginebanking.com/accounts/" + str(r.json()[i]['_id']) + "/purchases?key=" + API_KEY)
+    file.write('eqfeed_callback({"type": "FeatureCollection","features": [')
 
-        # Loop though all the purchases in this account
-        while s.json()[j]['merchant_id'] != "":
-            t = requests.get("http://api.reimaginebanking.com/merchants/" + s.json()[j]['merchant_id'] + "?key=" + API_KEY)
+    r = requests.get("http://api.reimaginebanking.com/customers/" + custId + "/accounts?key=" + API_KEY)
 
-            # print("lat:" + str(t.json()['geocode']['lat']) + " lng:" + str(t.json()['geocode']['lng']))
+    try:
+        # Loop though all the customers accounts
+        while r.json()[i]['_id'] != "":
+            s = requests.get("http://api.reimaginebanking.com/accounts/" + str(r.json()[i]['_id']) + "/purchases?key=" + API_KEY)
 
-            file.write('{"type": "Feature","properties": {"mag": 5.1}, "geometry": {"type": "Point","coordinates": [' + str(t.json()["geocode"]["lng"]) + ', ' + str(t.json()["geocode"]["lat"]) + ']}},\n')
+            # Loop though all the purchases in this account
+            while s.json()[j]['merchant_id'] != "":
+                t = requests.get("http://api.reimaginebanking.com/merchants/" + s.json()[j]['merchant_id'] + "?key=" + API_KEY)
 
-            j += 1
-        i += 1
-except IndexError as e:
-    pass
+                # print("lat:" + str(t.json()['geocode']['lat']) + " lng:" + str(t.json()['geocode']['lng']))
 
-file.write(']});')
+                file.write('{"type": "Feature","properties": {"mag": 5.1}, "geometry": {"type": "Point","coordinates": [' + str(t.json()["geocode"]["lng"]) + ', ' + str(t.json()["geocode"]["lat"]) + ']}},\n')
 
-file.close()
+                j += 1
+            i += 1
+    except IndexError as e:
+        pass
+
+    file.write(']});')
+
+    file.close()
+
+if __name__ == "__main__":
+    main()
