@@ -2,6 +2,8 @@
 import requests
 import json
 import sys
+import scipy
+import scipy.interpolate
 from scipy.interpolate import interp1d
 
 from envVariables import *

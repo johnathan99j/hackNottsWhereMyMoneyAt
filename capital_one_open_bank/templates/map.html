@@ -26,9 +26,9 @@
     <center>
     <h1 style="color: #303e4e; font: 1.8 Optimist,Arial,Helvetica,sans-serif";>
       CapitalOne - WhereMyMoneyAt?</h1>
-    <img src="{% static "capital-one-logo.png" %}"
+    <a href="{% url 'home'%}"><img src="{% static "capital-one-logo.png" %}"
       alt="Capital One Logo" style="width: 250px; height: 100px;
-      display: block; margin: 0 auto;"/>
+      display: block; margin: 0 auto;"/></a>
       <h3 style="color: #303e4e; font: 1.8 Optimist,Arial,Helvetica,sans-serif;"
       ><strong>
         Merchants were you spent bigger amounts have bigger circles around them
@@ -64,7 +64,7 @@
       function getCircle(magnitude) {
         return {
           path: google.maps.SymbolPath.CIRCLE,
-          fillColor: '#FFF345',
+          fillColor: '#FF0000',
           fillOpacity: .4,
           scale: Math.pow(2, magnitude) / 2,
           strokeColor: 'white',

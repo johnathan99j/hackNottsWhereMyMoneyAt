@@ -7,3 +7,5 @@ To have the api calls work you must declare API_KEY in envVariables
 First set up a [virtual environment](https://virtualenv.pypa.io/en/stable/).
 
 Then run `pip install -r requirements.txt` from the project root.
+
+NOTE: scipi will need to be installed globally
