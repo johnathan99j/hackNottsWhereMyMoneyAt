@@ -2,6 +2,7 @@
 import requests
 import json
 import sys
+from scipy.interpolate import interp1d
 
 from envVariables import *
 
@@ -29,11 +30,11 @@ def main():
 
             # Loop though all the purchases in this account
             while s.json()[j]['merchant_id'] != "":
-                t = requests.get("http://api.reimaginebanking.com/merchants/" + s.json()[j]['merchant_id'] + "?key=" + API_KEY)
+                t = requests.get("http://api.reimaginebanking.com/merchants/" + str(s.json()[j]['merchant_id']) + "?key=" + API_KEY)
 
                 # print("lat:" + str(t.json()['geocode']['lat']) + " lng:" + str(t.json()['geocode']['lng']))
 
-                file.write('{"type": "Feature","properties": {"mag": 5.1}, "geometry": {"type": "Point","coordinates": [' + str(t.json()["geocode"]["lng"]) + ', ' + str(t.json()["geocode"]["lat"]) + ']}},\n')
+                file.write('{"type": "Feature","properties": {"mag": ' + str(calcMag(s.json()[j]["amount"])) + '}, "geometry": {"type": "Point","coordinates": [' + str(t.json()["geocode"]["lng"]) + ', ' + str(t.json()["geocode"]["lat"]) + ']}},\n')
 
                 j += 1
             i += 1
@@ -43,6 +44,17 @@ def main():
     file.write(']});')
 
     file.close()
+
+def calcMag(money):
+
+    if money > 512: money = 511
+    elif money < 0: money = 0
+
+    m = interp1d([0,512],[3,6])
+    # print(m(money))
+
+    return m(money)
+    pass
 
 if __name__ == "__main__":
     main()
